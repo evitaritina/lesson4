@@ -10,7 +10,7 @@ public class TestTeamVelocity {
     @Test
     public void complexTest() {
         Team myTeam = new Team();
-        Assert.assertEquals("Empty team has zero velicity", 0.0, myTeam.getTeamVelocity(), 0.1);
+        Assert.assertEquals("Empty team has zero velocity", 0.0, myTeam.getTeamVelocity(), 0.1);
 
         Member member = new Member();
         myTeam.addMember(member);
