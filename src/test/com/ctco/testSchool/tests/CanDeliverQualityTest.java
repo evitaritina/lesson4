@@ -6,26 +6,44 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static org.junit.Assert.assertEquals;
+
 public class CanDeliverQualityTest {
     @Test
-    public void oneQAoneStoryTest(){
-        Team team = new Team();
-        Story story = new Story();
-        story.setStoryPoints(10);
-        story.setTestPoints(10);
-        team.backlog = Arrays.asList(story);
-        Member memberQA = new Member();
-        team.addMember(memberQA);
-        memberQA.testingSkills = true;
-        Member memberDEV = new Member();
-        team.addMember(memberDEV);
-        memberDEV.codinSkills = true;
-       Assert.assertTrue(team.canDeliverQuality());
-       Assert.assertTrue(team.canDo());
-        Assert.assertTrue(team.canDeliver());
+    public void CanDeliverQualityHappyPath_test() {
+        Team myTeam = new Team();
+        Member memberQA1 = new Member(Member.type.TEST);
 
+        myTeam.addMember(memberQA1);
+
+        memberQA1.setVelocity(1.0);
+
+        Story story = new Story();
         story.setTestPoints(1);
-        Assert.assertTrue(team.canDeliverQuality());
+
+        myTeam.backlog = Arrays.asList(story);
+
+        assertEquals("Can't delivery", true, myTeam.canDeliverQuality());
+
+    }
+
+    @Test
+    public void CanDeliverQualityNegativeScenario_test() {
+        Team myTeam = new Team();
+
+        Member memberQA1 = new Member(Member.type.TEST);
+        myTeam.addMember(memberQA1);
+        memberQA1.setVelocity(1.0);
+
+        Story story1 = new Story();
+        story1.setTestPoints(5);
+
+        Story story2 = new Story();
+        story2.setTestPoints(6);
+
+        myTeam.backlog = Arrays.asList(story1, story2);
+
+        assertEquals("Can deliver", false, myTeam.canDeliverQuality());
 
     }
 }

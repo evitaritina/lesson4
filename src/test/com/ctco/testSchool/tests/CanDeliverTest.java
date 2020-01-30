@@ -1,14 +1,11 @@
 import com.ctco.testSchool.Member;
 import com.ctco.testSchool.Story;
 import com.ctco.testSchool.Team;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class CanDeliverTest {
     @Test
@@ -49,14 +46,14 @@ public class CanDeliverTest {
         memberQA1.setVelocity(1.0);
 
         Story story1 = new Story();
-        story1.setStoryPoints(1);
+        story1.setStoryPoints(11);
 
         Story story2 = new Story();
-        story2.setStoryPoints(2);
+        story2.setStoryPoints(5);
 
         myTeam.backlog = Arrays.asList(story1, story2);
 
-        assertEquals("Can delivery", false, myTeam.canDeliver());
+        assertEquals("Can deliver", false, myTeam.canDeliver());
 
     }
 }
