@@ -39,4 +39,14 @@ public class TestTeamVelocityAAA {
         myTeam.addMember((member3));
         Assert.assertEquals("By default my velocity is per 10 days of sprint", 25.0, myTeam.getTeamVelocity(), 0.1);
     }
+    @Test
+    public  void twoMembersTest(){
+        Member member1 = new Member();
+        Member member2 = new Member();
+        myTeam.addMember((member1));
+        member1.codinSkills = true;
+        myTeam.addMember((member2));
+        member2.testingSkills = true;
+        Assert.assertEquals("DEV and QA velocity is per 10 days of sprint", 20.0, myTeam.getTeamVelocity(), 0.1);
+    }
 }

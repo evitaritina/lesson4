@@ -14,4 +14,12 @@ public class Member {
         codinSkills = type == Member.type.DEV;
         testingSkills = type == Member.type.TEST;
     }
+
+    public double getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(double velocity) {
+        this.velocity = velocity;
+    }
 }
