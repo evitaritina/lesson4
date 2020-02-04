@@ -164,8 +164,8 @@ public class CanDeliveryQuality_BlackBoxRegression {
 
         assertEquals("Can't delivery quality", true, myTeam1.canDeliverQuality());
         assertEquals("Can't delivery quality", true, myTeam2.canDeliverQuality());
-        assertEquals("Can't delivery quality", false, myTeam1.canDeliverQuality());
-        assertEquals("Can't delivery quality", true, myTeam1.canDeliverQuality());
+        assertEquals("Can't delivery quality", false, myTeam3.canDeliverQuality());
+        assertEquals("Can't delivery quality", true, myTeam4.canDeliverQuality());
 
 
     }
