@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
+import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 
 public class CanDeliveryQuality_BlackBoxRegression {
@@ -158,6 +159,7 @@ public class CanDeliveryQuality_BlackBoxRegression {
         myTeam.backlog = Arrays.asList(story1);
         try {
             myTeam.canDeliverQuality();
+            fail("expected exception not thrown");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             Assert.assertEquals("Velocity can't be more than 1", e.getMessage());
@@ -165,6 +167,7 @@ public class CanDeliveryQuality_BlackBoxRegression {
 
 
     }
+
     @Test
     public void CanDeliverQuality_SprintDays_test() {
         Team myTeam = new Team();
@@ -183,15 +186,17 @@ public class CanDeliveryQuality_BlackBoxRegression {
         myTeam.backlog = Arrays.asList(story1);
         try {
             myTeam.canDeliverQuality();
-        } catch (IllegalArgumentException e){
+            fail("expected exception not thrown");
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             Assert.assertEquals("Sprint should be at least two days long", e.getMessage());
         }
 
 
-}
+    }
+
     @Test
-    public void CanDeliverQuality_StoryPoints_test() {
+    public void CanDeliverQuality_NegativeVelocity_test() {
         Team myTeam = new Team();
         Member memberDEV1 = new Member(Member.type.DEV);
         Member memberQA1 = new Member(Member.type.TEST);
@@ -208,11 +213,12 @@ public class CanDeliveryQuality_BlackBoxRegression {
         myTeam.backlog = Arrays.asList(story1);
         try {
             myTeam.canDeliverQuality();
-        } catch (IllegalArgumentException e){
+            fail("expected exception not thrown");
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             Assert.assertEquals("Velocity should be positive", e.getMessage());
         }
 
-
-    }}
+    }
+}
 
