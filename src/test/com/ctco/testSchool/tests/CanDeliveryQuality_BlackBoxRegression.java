@@ -3,6 +3,7 @@ package com.ctco.testSchool.tests;
 import com.ctco.testSchool.Member;
 import com.ctco.testSchool.Story;
 import com.ctco.testSchool.Team;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -77,13 +78,11 @@ public class CanDeliveryQuality_BlackBoxRegression {
         myTeam.addMember(memberQA1);
 
         memberDEV1.setVelocity(1.0);
-        memberQA1.setVelocity(0);
+        memberQA1.setVelocity(0.1);
 
         Story story1 = new Story();
         story1.setStoryPoints(5);
         story1.setTestPoints(0);
-
-
 
 
         myTeam.backlog = Arrays.asList(story1);
@@ -103,42 +102,19 @@ public class CanDeliveryQuality_BlackBoxRegression {
         Team myTeam1 = new Team();
         Member memberDEV1 = new Member(Member.type.DEV);
         Member memberQA1 = new Member(Member.type.TEST);
-
-        Team myTeam2 = new Team();
         Member memberDEV2 = new Member(Member.type.DEV);
         Member memberQA2 = new Member(Member.type.TEST);
 
-        Team myTeam3 = new Team();
-        Member memberDEV3 = new Member(Member.type.DEV);
-        Member memberQA3 = new Member(Member.type.TEST);
-
-        Team myTeam4 = new Team();
-
-
         myTeam1.addMember(memberDEV1);
         myTeam1.addMember(memberQA1);
-
-        myTeam2.addMember(memberDEV2);
-        myTeam2.addMember(memberQA2);
-
-        myTeam3.addMember(memberDEV3);
-        myTeam3.addMember(memberQA3);
-
-        myTeam4.addMember(memberDEV1);
-        myTeam4.addMember(memberQA3);
+        myTeam1.addMember(memberDEV2);
+        myTeam1.addMember(memberQA2);
 
         memberDEV1.setVelocity(1.0);
-        memberQA1.setVelocity(0.5);
+        memberQA1.setVelocity(1.0);
 
-        memberDEV2.setVelocity(0.7);
-        memberQA2.setVelocity(0.1);
-
-        memberDEV3.setVelocity(0);
-        memberQA3.setVelocity(1.0);
-
-
-
-
+        memberDEV2.setVelocity(1.0);
+        memberQA2.setVelocity(1.0);
 
         Story story1 = new Story();
         story1.setStoryPoints(1);
@@ -156,19 +132,87 @@ public class CanDeliveryQuality_BlackBoxRegression {
         story4.setStoryPoints(1);
         story4.setTestPoints(1);
 
+        Story story5 = new Story();
+        story5.setStoryPoints(1);
+        story5.setTestPoints(1);
 
-        myTeam1.backlog = Arrays.asList(story1);
-        myTeam2.backlog = Arrays.asList(story2);
-        myTeam3.backlog = Arrays.asList(story3);
-        myTeam4.backlog = Arrays.asList(story4);
+        myTeam1.backlog = Arrays.asList(story1, story2, story3, story4, story5);
 
         assertEquals("Can't delivery quality", true, myTeam1.canDeliverQuality());
-        assertEquals("Can't delivery quality", true, myTeam2.canDeliverQuality());
-        assertEquals("Can't delivery quality", false, myTeam3.canDeliverQuality());
-        assertEquals("Can't delivery quality", true, myTeam4.canDeliverQuality());
+    }
+
+    @Test
+    public void CanDeliverQuality_velocity_test() {
+        Team myTeam = new Team();
+        Member memberDEV1 = new Member(Member.type.DEV);
+        Member memberQA1 = new Member(Member.type.TEST);
+        myTeam.addMember(memberDEV1);
+        myTeam.addMember(memberQA1);
+
+        memberDEV1.setVelocity(1.2);
+        memberQA1.setVelocity(1);
+
+        Story story1 = new Story();
+        story1.setStoryPoints(5);
+        story1.setTestPoints(0);
+        myTeam.backlog = Arrays.asList(story1);
+        try {
+            myTeam.canDeliverQuality();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            Assert.assertEquals("Velocity can't be more than 1", e.getMessage());
+        }
 
 
     }
+    @Test
+    public void CanDeliverQuality_SprintDays_test() {
+        Team myTeam = new Team();
+        Member memberDEV1 = new Member(Member.type.DEV);
+        Member memberQA1 = new Member(Member.type.TEST);
+        myTeam.addMember(memberDEV1);
+        myTeam.addMember(memberQA1);
+        memberDEV1.setVelocity(1);
+        memberQA1.setVelocity(1);
+
+        myTeam.sprintDays = 1;
+
+        Story story1 = new Story();
+        story1.setStoryPoints(1);
+        story1.setTestPoints(1);
+        myTeam.backlog = Arrays.asList(story1);
+        try {
+            myTeam.canDeliverQuality();
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            Assert.assertEquals("Sprint should be at least two days long", e.getMessage());
+        }
 
 
 }
+    @Test
+    public void CanDeliverQuality_StoryPoints_test() {
+        Team myTeam = new Team();
+        Member memberDEV1 = new Member(Member.type.DEV);
+        Member memberQA1 = new Member(Member.type.TEST);
+        myTeam.addMember(memberDEV1);
+        myTeam.addMember(memberQA1);
+        memberDEV1.setVelocity(-1);
+        memberQA1.setVelocity(1);
+
+        myTeam.sprintDays = 10;
+
+        Story story1 = new Story();
+        story1.setStoryPoints(1);
+        story1.setTestPoints(1);
+        myTeam.backlog = Arrays.asList(story1);
+        try {
+            myTeam.canDeliverQuality();
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            Assert.assertEquals("Velocity should be positive", e.getMessage());
+        }
+
+
+    }}
+
