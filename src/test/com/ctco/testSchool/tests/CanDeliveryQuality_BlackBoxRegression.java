@@ -159,7 +159,7 @@ public class CanDeliveryQuality_BlackBoxRegression {
         myTeam.backlog = Arrays.asList(story1);
         try {
             myTeam.canDeliverQuality();
-            fail("expected exception not thrown");
+            fail("expected exception \"Velocity can't be more than 1\" not thrown");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             Assert.assertEquals("Velocity can't be more than 1", e.getMessage());
@@ -186,7 +186,7 @@ public class CanDeliveryQuality_BlackBoxRegression {
         myTeam.backlog = Arrays.asList(story1);
         try {
             myTeam.canDeliverQuality();
-            fail("expected exception not thrown");
+            fail("expected exception \"Sprint should be at least two days long\" not thrown");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             Assert.assertEquals("Sprint should be at least two days long", e.getMessage());
@@ -213,7 +213,7 @@ public class CanDeliveryQuality_BlackBoxRegression {
         myTeam.backlog = Arrays.asList(story1);
         try {
             myTeam.canDeliverQuality();
-            fail("expected exception not thrown");
+            fail("expected exception \"Velocity should be positive\" not thrown");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             Assert.assertEquals("Velocity should be positive", e.getMessage());
